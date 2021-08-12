@@ -13,7 +13,7 @@ services:
     ports:
     - "9090:8080"
     volumes:
-    - tomcat:/var/lib/tomcat/webapps:rw
+    - tomcat:/usr/local/tomcat/webapps:rw
 volumes:
   tech: {}
   tomcat: {}  
