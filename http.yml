@@ -8,7 +8,7 @@ services:
     volumes:
     - tech:/var/www/html:rw
   tomcat:
-    container_name:
+    container_name: "tomcat"
     image: tomcat
     ports:
     - "9090:8080"
