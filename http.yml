@@ -1,0 +1,19 @@
+version: "3"
+services:
+  webserver:
+    container_name: "mademitech"
+    image: ubuntu/apache2
+    ports:
+    - "8000:80"
+    volumes:
+    - tech:/var/www/html:rw
+  tomcat:
+    container_name:
+    image: tomcat
+    ports:
+    - "9090:8080"
+    volumes:
+    - tomcat:/var/lib/tomcat/webapps:rw
+volumes:
+  tech: {}
+  tomcat: {}  
