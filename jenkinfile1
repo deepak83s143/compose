@@ -37,7 +37,7 @@ pipeline {
             sshPublisher(publishers: [sshPublisherDesc(configName: 'webserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
             cd /var/lib/docker/volumes/http_tomcat/_data/sample	    
 	    sudo unzip sample.war  
-            cp /home/mademi/http/index.html /var/lib/docker/volumes/http_tomcat/_data/sample
+            sudo cp /home/mademi/http/index.html /var/lib/docker/volumes/http_tomcat/_data/sample
 	    sudo docker ps -a''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/http', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
         }
     }
