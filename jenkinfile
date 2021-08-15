@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Compile') {
+            steps {
+                git 'https://github.com/deepak83s143/compose.git'
+            }
+        }
+        stage ('Deploy over SSH') {
+            steps {
+            sshPublisher(publishers: [sshPublisherDesc(configName: 'webserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sudo systemctl restart docker
+            sudo docker stop mademitech tomcat
+            sudo docker rm mademitech tomcat
+            cd http
+            sudo docker-compose -f http.yml config
+            sudo docker-compose -f http.yml up -d
+            sudo cp /home/mademi/http/index.html /var/lib/docker/volumes/http_tech/_data/
+            sudo cp /home/mademi/http/deepak.jpg /var/lib/docker/volumes/http_tech/_data/
+            cd /var/lib/docker/volumes/http_tomcat/_data/
+            sudo mkdir sample
+            cd /var/lib/docker/volumes/http_tomcat/_data/sample
+            sudo rm -rf *
+            sudo cp /home/mademi/http/sample.war /var/lib/docker/volumes/http_tomcat/_data/sample/
+            sudo unzip sample.war  
+            sudo docker ps -a''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/http', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+        }
+    }
+}
+}
